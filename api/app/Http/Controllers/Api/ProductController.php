@@ -29,12 +29,17 @@ class ProductController extends Controller
     {
         $product = new Product();
         $product->title =$request->title;
-        $product->sulg =$request->sulg;
+        $product->slug =$request->title;
         $product->description =$request->description;
         $product->price =$request->price;
         $product->quantity =$request->quantity;
         $product->save();
-        return "product stored successfully";
+
+        return response()->json([
+           'status'=>200,
+            'message'=>'product stored successfully',
+        ]);
+//        return "product stored successfully";
     }
 
     /**
@@ -45,7 +50,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        return $product;
     }
 
     /**
@@ -57,7 +63,25 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       return $request;
+        $product = Product::whereId($id)->first();
+        $product->update([
+            'title'=>$request->title,
+            'slug'=>$request->slug,
+            'description'=>$request->description,
+            'price'=>$request->price,
+            'quantity'=>$request->quantity,
+        ]);
+        return response()->json('success');
+
+
+//        $product->title =$request->title;
+//        $product->slug =$request->slug;
+//        $product->description =$request->description;
+//        $product->price =$request->price;
+//        $product->quantity =$request->quantity;
+//        $product->save();
+//        return "product updated successfully";
     }
 
     /**
@@ -68,6 +92,8 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->delete();
+        return "product deleted successfully";
     }
 }
