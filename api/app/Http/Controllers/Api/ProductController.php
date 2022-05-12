@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -29,7 +30,7 @@ class ProductController extends Controller
     {
         $product = new Product();
         $product->title =$request->title;
-        $product->slug =$request->title;
+        $product->slug =Str::slug($request->title);
         $product->description =$request->description;
         $product->price =$request->price;
         $product->quantity =$request->quantity;
@@ -66,7 +67,7 @@ class ProductController extends Controller
 
         $product = Product::find($id);
         $product->title =$request->title;
-        $product->slug =$request->title;
+        $product->slug =Str::slug($request->title);
         $product->description =$request->description;
         $product->price =$request->price;
         $product->quantity =$request->quantity;
