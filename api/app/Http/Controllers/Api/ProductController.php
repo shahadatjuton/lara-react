@@ -63,25 +63,15 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-       return $request;
-        $product = Product::whereId($id)->first();
-        $product->update([
-            'title'=>$request->title,
-            'slug'=>$request->slug,
-            'description'=>$request->description,
-            'price'=>$request->price,
-            'quantity'=>$request->quantity,
-        ]);
-        return response()->json('success');
 
-
-//        $product->title =$request->title;
-//        $product->slug =$request->slug;
-//        $product->description =$request->description;
-//        $product->price =$request->price;
-//        $product->quantity =$request->quantity;
-//        $product->save();
-//        return "product updated successfully";
+        $product = Product::find($id);
+        $product->title =$request->title;
+        $product->slug =$request->title;
+        $product->description =$request->description;
+        $product->price =$request->price;
+        $product->quantity =$request->quantity;
+        $product->save();
+        return "product updated successfully";
     }
 
     /**
